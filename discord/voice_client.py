@@ -369,12 +369,7 @@ class VoiceClient:
 
         return header + box.encrypt(bytes(data), bytes(nonce)).ciphertext + nonce[:4]
 
-<<<<<<< HEAD
-    def play(self, source, *, after=None):
-=======
-
     def play(self, source, *, after=None, after_args=None):
->>>>>>> Update play function to accept args for "after"
         """Plays an :class:`AudioSource`.
 
         The finalizer, ``after`` is called after the source has been exhausted
