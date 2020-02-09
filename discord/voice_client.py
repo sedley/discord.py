@@ -369,7 +369,12 @@ class VoiceClient:
 
         return header + box.encrypt(bytes(data), bytes(nonce)).ciphertext + nonce[:4]
 
+<<<<<<< HEAD
     def play(self, source, *, after=None):
+=======
+
+    def play(self, source, *, after=None, after_args=None):
+>>>>>>> Update play function to accept args for "after"
         """Plays an :class:`AudioSource`.
 
         The finalizer, ``after`` is called after the source has been exhausted
@@ -410,7 +415,7 @@ class VoiceClient:
         if not self.encoder and not source.is_opus():
             self.encoder = opus.Encoder()
 
-        self._player = AudioPlayer(source, self, after=after)
+        self._player = AudioPlayer(source, self, after=after, after_args=after_args)
         self._player.start()
 
     def is_playing(self):

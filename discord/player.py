@@ -541,12 +541,13 @@ class PCMVolumeTransformer(AudioSource):
 class AudioPlayer(threading.Thread):
     DELAY = OpusEncoder.FRAME_LENGTH / 1000.0
 
-    def __init__(self, source, client, *, after=None):
+    def __init__(self, source, client, *, after=None, after_args=None):
         threading.Thread.__init__(self)
         self.daemon = True
         self.source = source
         self.client = client
         self.after = after
+        self.after_args = after_args
 
         self._end = threading.Event()
         self._resumed = threading.Event()
@@ -608,7 +609,7 @@ class AudioPlayer(threading.Thread):
 
         if self.after is not None:
             try:
-                self.after(error)
+                self.after(error, self.after_args)
             except Exception as exc:
                 log.exception('Calling the after function failed.')
                 exc.__context__ = error
